@@ -1,0 +1,33 @@
+{
+  "name": "crr-01-24_machine-management",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start": "nodemon",
+    "copy": "cp package.json dist/ && cp README.md dist/ && cp dist.env dist/.env && cp dist.docker-compose.yml dist/docker-compose.yml && cp dist.Dockerfile dist/Dockerfile && cp dist.dockerignore dist/.dockerignore",
+    "build": "npm run copy && tsc --project ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
+    "exceljs": "^4.4.0",
+    "fs": "^0.0.1-security",
+    "knex": "^3.1.0",
+    "nodemon": "^3.1.4",
+    "pg": "^8.12.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/crypto-js": "^4.2.2",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.4",
+    "express": "^4.19.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}

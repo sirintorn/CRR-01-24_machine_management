@@ -11,9 +11,9 @@ export class UserSchema extends TableRecordsSchema{
         super(TABLE_NAMES.Users);
     }
 
-    login(username: string, password: string): Promise<User>{
+    login(username: string, password: string): Promise<any>{
         return new Promise((resolve, reject) => {
-            const pass_hash = CryptoJS.MD5(password).toString(CryptoJS.enc.Utf8);
+            const pass_hash = CryptoJS.MD5(password).toString();
             const table = DB<User>(this.tableName);
             table.select('*')
             .where('username', username)
@@ -31,7 +31,7 @@ export class UserSchema extends TableRecordsSchema{
         });
     }
 
-    register(username: string, password: string): Promise<User>{
+    register(username: string, password: string): Promise<any>{
         return new Promise((resolve, reject) => {
             const table = DB<User>(this.tableName);
             table.select('*')
@@ -41,7 +41,7 @@ export class UserSchema extends TableRecordsSchema{
                 if(!user){
                     //ถ้ายังไม่มี user นี้อยู่จริง
                     if(password && password.length >= 6 && password.length <= 12){
-                        const pass_hash = CryptoJS.MD5(password).toString(CryptoJS.enc.Utf8);
+                        const pass_hash = CryptoJS.MD5(password).toString();
                         let newUser: User = {
                             id: null,
                             username: username,

@@ -4,7 +4,7 @@ export const AppRoute = Router();
 
 const path = '/app';
 
-// display simple id form GET
+//display simple id from GET
 AppRoute.route(path + '/:id').get(async (req, res) => {
     try {
         const id = req.params.id;
@@ -16,14 +16,14 @@ AppRoute.route(path + '/:id').get(async (req, res) => {
     }
 });
 
-// display simple body date from POST
+//display simple body data from POST
 AppRoute.route(path).post(async (req, res) => {
     try {
         const data = req.body;
         const result = "Your data:" + JSON.stringify(data);
-
-        res.status(200).json(result);
-    } catch (error) {
+        
+        res.status(200).json(result);   
+    } catch (error: any) {
         res.status(400).send(error);
     }
-})
+});

@@ -9,7 +9,7 @@ export const DB = knex.knex(knexFile.default[environment]);
 export const TABLE_NAMES = {
     //คือการกำหนัดชื่อ Table ต่างๆ ที่ต้องการจะให้มีในฐานข้อมูล
     Users: "Users",
-    Posts: "Posts"
+    Posts: "Posts",
 }
 
 export interface TableRecord{

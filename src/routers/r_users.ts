@@ -15,7 +15,7 @@ UserRouter.route(path + '/login').post(async (req, res) => {
 
         res.status(200).send(result);
     } catch (error) {
-        res.status(400).send()
+        res.status(400).send(error);
     }
 });
 
@@ -29,6 +29,6 @@ UserRouter.route(path + '/register').post(async (req, res) => {
 
         res.status(200).send(result);
     } catch (error) {
-        res.status(400).send()
+        res.status(400).send(error)
     }
 });

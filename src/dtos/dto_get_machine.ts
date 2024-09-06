@@ -1,4 +1,4 @@
-import { Machine } from "../models/b_machines";
+import { Machine } from "../models/m_machines";
 import { DTO } from "./dto";
 
 export class DtoGetMachine extends DTO{

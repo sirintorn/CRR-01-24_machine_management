@@ -11,7 +11,7 @@ export interface StepCalibrationTarget extends TableRecord{
 }
 
 export class StepCalibrationTargetSchema extends TableRecordsSchema{
-    constructor(){
+    constructor() {
         super(TABLE_NAMES.StepCalibrationTarget);
     }
 

@@ -10,6 +10,14 @@ export const TABLE_NAMES = {
     //คือการกำหนัดชื่อ Table ต่างๆ ที่ต้องการจะให้มีในฐานข้อมูล
     Users: "Users",
     Posts: "Posts",
+    TintingProfile: "TintingProfile",
+    // ที่เพิ่มเข้ามาใหม่
+    CircuitInfo: "CircuitInfo",
+    AccuracyTestTarget: "AccuracyTestTarget",
+    CalibrationInfo: "CalibrationInfo",
+    VolumeCalibrationTarget: "VolumeCalibrationTarget",
+    StepCalibrationTarget: "StepCalibrationTarget",
+    Machine: "Machine",
 }
 
 export interface TableRecord{

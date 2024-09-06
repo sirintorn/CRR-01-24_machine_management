@@ -11,7 +11,7 @@ export interface VolumeCalibrationTarget extends TableRecord{
 }
 
 export class VolumeCalibrationTargetSchema extends TableRecordsSchema{
-    constructor(){
+    constructor() {
         super(TABLE_NAMES.VolumeCalibrationTarget);
     }
 

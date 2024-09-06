@@ -11,7 +11,7 @@ export interface Machine extends TableRecord{
 }
 
 export class MachineSchema extends TableRecordsSchema{
-    constructor(){
+    constructor() {
         super(TABLE_NAMES.Machine);
     }
 

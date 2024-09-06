@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { MachineSchema } from "../models/b_machines";
+import { MachineSchema } from "../models/m_machines";
 import { DtoGetMachine } from "../dtos/dto_get_machine";
 import { MDCAPI } from "../services/mdc";
 

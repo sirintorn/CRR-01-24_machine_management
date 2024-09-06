@@ -1,8 +1,8 @@
-import { CircuitInfo, CircuitInfoSchema } from "../models/c_circuit_infos";
-import { CalibrationInfo, CalibrationInfoSchema } from "../models/c_calibration_infos";
-import { VolumeCalibrationTarget, VolumeCalibrationTargetSchema } from "../models/c_volume_calibration_target";
-import { StepCalibrationTarget, StepCalibrationTargetSchema } from "../models/c_step_calibration_target";
-import { AccuracyTestTarget, AccuracyTestTargetSchema } from "../models/c_accuracy_test_targets";
+import { CircuitInfo, CircuitInfoSchema } from "../models/m_circuit_infos";
+import { CalibrationInfo, CalibrationInfoSchema } from "../models/m_calibration_infos";
+import { VolumeCalibrationTarget, VolumeCalibrationTargetSchema } from "../models/m_volume_calibration_target";
+import { StepCalibrationTarget, StepCalibrationTargetSchema } from "../models/m_step_calibration_target";
+import { AccuracyTestTarget, AccuracyTestTargetSchema } from "../models/m_accuracy_test_targets";
 import { Workbook } from "exceljs";
 
 export class TPImporter {

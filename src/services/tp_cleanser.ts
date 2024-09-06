@@ -1,9 +1,9 @@
-import { AccuracyTestTargetSchema } from "../models/c_accuracy_test_targets";
-import { CalibrationInfoSchema } from "../models/c_calibration_infos";
-import { CircuitInfoSchema } from "../models/c_circuit_infos";
-import { StepCalibrationTargetSchema } from "../models/c_step_calibration_target";
-import { TintingProfileSchema } from "../models/c_tinting_profiles";
-import { VolumeCalibrationTargetSchema } from "../models/c_volume_calibration_target";
+import { AccuracyTestTargetSchema } from "../models/m_accuracy_test_targets";
+import { CalibrationInfoSchema } from "../models/m_calibration_infos";
+import { CircuitInfoSchema } from "../models/m_circuit_infos";
+import { StepCalibrationTargetSchema } from "../models/m_step_calibration_target";
+import { TintingProfileSchema } from "../models/m_tinting_profiles";
+import { VolumeCalibrationTargetSchema } from "../models/m_volume_calibration_target";
 
 export class TPCleanser{
     static async clearDB(tinting_profile_id: any,

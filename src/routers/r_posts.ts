@@ -56,7 +56,7 @@ PostRoute.route(path + '/:post_id').delete(async (req, res) => {
         const schema = new PostSchema();
         const result = await schema.forceDelete(post_id);
         
-        res.status(200).send(result);
+        res.status(200).send();
     } catch (error) {
         res.status(400).send(error)
     }

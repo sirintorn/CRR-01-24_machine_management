@@ -1,15 +1,15 @@
 import { DB, TABLE_NAMES, TableRecord, TableRecordsSchema } from "../../db/db";
 
-export interface Post extends TableRecord {
+export interface Post extends TableRecord{
     content: string;
 }
 
-export class PostSchema extends TableRecordsSchema {
-    constructor() {
+export class PostSchema extends TableRecordsSchema{
+    constructor(){
         super(TABLE_NAMES.Posts);
     }
 
-    getByUser(user_id: string): Promise<Post[]> {
+    getByUser(user_id: string): Promise<Post[]>{
         return new Promise((resolve, reject) => {
             const table = DB<Post>(this.tableName);
             table.select('*')

@@ -1,4 +1,5 @@
 import { DB, TABLE_NAMES, TableRecord, TableRecordsSchema } from "../../db/db";
+import { DTOUpdateCircuitInfo } from "../dtos/dto_update_circuit_info";
 
 export interface CircuitInfo extends TableRecord{
     //Enabled	
@@ -53,6 +54,25 @@ export class CircuitInfoSchema extends TableRecordsSchema{
             .where('tinting_profile_id', tinting_profile_id)
             .then(val => {
                 resolve(val);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    }
+
+    updateCircuitInfo(tinting_profile_id: string, dto: DTOUpdateCircuitInfo): Promise<CircuitInfo>{
+        return new Promise((resolve, reject) => {
+            const table = DB<CircuitInfo>(this.tableName);
+            table
+            .update(dto, '*')
+            .where('tinting_profile_id', tinting_profile_id)
+            .where('tinter_code', dto.tinter_code)
+            .then(vals => {
+                if(vals.length > 0){
+                    resolve(vals[0]);
+                }else{
+                    reject({status: 404});
+                }
             }).catch(error => {
                 reject(error);
             });

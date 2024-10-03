@@ -15,15 +15,11 @@ const config: { [key: string]: Knex.Config } = {
       directory: './db/migrations'
     }
   },
-  production: {
+  staging: {
     client: 'pg',
-    connection: process.env.DB_PROD_URL,
-    pool: {
-      min: 2,
-      max: 10
-    },
+    connection: process.env.DB_STAG_URL,
     migrations: {
-      tableName: "knex_migrations"
+      directory: './db/migrations'
     }
   }
 

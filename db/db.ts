@@ -1,5 +1,6 @@
 import * as knex from "knex";
 import * as knexFile from '../knexfile';
+import { IDGenerator } from "../src/services/id_generator";
 
 //env ==> "development", "staging". "production"
 const environment = process.env.NODE_ENV || "development";
@@ -63,7 +64,7 @@ export class TableRecordsSchema{
 
     create(data: any, isNewId?: boolean): Promise<any>{
         if(isNewId){
-            data.id = DB.fn.uuid();
+            data.id = IDGenerator.newUUID();
         }
         return new Promise((resolve, reject) => {
             const table = DB<any>(this.tableName);
@@ -78,7 +79,7 @@ export class TableRecordsSchema{
 
     createMultiple(datas: any[], isNewId?: boolean): Promise<any>{
         if(isNewId){
-            datas.forEach((item) => item.id = DB.fn.uuid());
+            datas.forEach((item) => item.id = IDGenerator.newUUID());
         }
 
         return new Promise((resolve, reject) => {
@@ -140,7 +141,7 @@ export class TableRecordsSchema{
 
     batchInsert(datas: any[], isNewId?: boolean): Promise<any[]>{
         if(isNewId){
-            datas.forEach((item) => item.id = DB.fn.uuid());
+            datas.forEach((item) => item.id = IDGenerator.newUUID());
         }
         return new Promise((resolve, reject) => {
             const chunkSize = 1000;

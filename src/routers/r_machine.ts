@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { MachineSchema } from "../models/m_machines";
+import { Machine, MachineSchema } from "../models/m_machines";
 import { DtoGetMachine } from "../dtos/dto_get_machine";
 import { MDCAPI } from "../services/mdc";
 
@@ -7,19 +7,33 @@ export const MachineRoute = Router();
 
 const path = '/machine';
 
+//GET BY COMPANY
 MachineRoute.route(path + '/by-company/:company_id').get(async (req, res) => {
     try {
         const company_id = req.params.company_id;
 
         const machineSCH = new MachineSchema();
-        const machine = await machineSCH.getByCompany(company_id);
+        let machines = await machineSCH.getByCompany(company_id);
 
-        res.status(200).send(machine);
+        for (let i = 0; i < machines.length; i++) {
+            let item = machines[i] as any;
+            if(item.db_version_id){
+                item._databases = 1;
+            }
+            if(item.tinting_profile_id){
+                item._tintingProfile = "UPLOADED"
+            }else{
+                item._tintingProfile = "EMPTY"
+            }
+        }
+
+        res.status(200).send(machines);
     } catch (error) {
         res.status(400).send(error);
     }
 });
 
+//DTO GET BY COMPANY
 MachineRoute.route(path + '/by-company/:company_id/dto').get(async (req, res) => {
     try {
         const company_id = req.params.company_id;
@@ -31,6 +45,64 @@ MachineRoute.route(path + '/by-company/:company_id/dto').get(async (req, res) =>
         const dtos = DtoGetMachine.parseFromArray(machines, dbVersions);
 
         res.status(200).send(dtos);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//CREATE
+MachineRoute.route(path).post(async (req, res) => {
+    try {
+        const data = req.body as Machine;
+
+        const machineSCH = new MachineSchema();
+        const result = await machineSCH.create(data, true);
+        
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//UPDATE
+MachineRoute.route(path + '/:machine_id').put(async (req, res) => {
+    try {
+        const data = req.body as Machine;
+        const machine_id = req.params.machine_id;
+
+        const machineSCH = new MachineSchema();
+        const result = await machineSCH.update(machine_id, data);
+
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//DELETE
+MachineRoute.route(path + '/:machine_id').delete(async (req, res) => {
+    try {
+        const machine_id = req.params.machine_id;
+
+        const machineSCH = new MachineSchema();
+        await machineSCH.delete(machine_id);
+
+        res.status(200).send();
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//GET SINGLE
+MachineRoute.route(path + '/:machine_id').get(async (req, res) => {
+    try {
+        const machine_id = req.params.machine_id;
+
+        const machineSCH = new MachineSchema();
+        const result = await machineSCH.get(machine_id);
+
+        if(result)res.status(200).send(result);
+        else res.status(404).send();
     } catch (error) {
         res.status(400).send(error);
     }

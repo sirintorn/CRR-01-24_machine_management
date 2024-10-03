@@ -13,6 +13,7 @@ import { TPCleanser } from "../services/tp_cleanser";
 import { TPImporter } from "../services/tp_importer";
 import { DispenseInterpolation } from "../services/android-app/interpolation";
 import { Workbook } from "exceljs";
+import { DTOUpdateCircuitInfo } from "../dtos/dto_update_circuit_info";
 
 export const TintingProfileRoute = Router();
 
@@ -3410,6 +3411,21 @@ TintingProfileRoute.route(path + '/tests/interpolation').get(async (req, res) =>
         res.send({
             targetStep: result
         });
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//update circuit info
+TintingProfileRoute.route(path + '/circuit-info/by-profile/:tinting_profile_id').put(async (req, res) => {
+    try {
+        const tinting_profile_id = req.params.tinting_profile_id as string;
+        const dto = req.body as DTOUpdateCircuitInfo;
+
+        const schema = new CircuitInfoSchema();
+        const result = await schema.updateCircuitInfo(tinting_profile_id, dto);
+
+        res.status(200).send(result);
     } catch (error) {
         res.status(400).send(error);
     }

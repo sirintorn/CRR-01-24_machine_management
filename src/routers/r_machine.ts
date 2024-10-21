@@ -33,6 +33,32 @@ MachineRoute.route(path + '/by-company/:company_id').get(async (req, res) => {
     }
 });
 
+//[ADMIN] GET BY COMPANY
+MachineRoute.route(path + '/by-company/:company_id/admin').get(async (req, res) => {
+    try {
+        const company_id = req.params.company_id;
+
+        const machineSCH = new MachineSchema();
+        let machines = await machineSCH.adminGetByCompany(company_id);
+
+        for (let i = 0; i < machines.length; i++) {
+            let item = machines[i] as any;
+            if(item.db_version_id){
+                item._databases = 1;
+            }
+            if(item.tinting_profile_id){
+                item._tintingProfile = "UPLOADED"
+            }else{
+                item._tintingProfile = "EMPTY"
+            }
+        }
+
+        res.status(200).send(machines);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
 //DTO GET BY COMPANY
 MachineRoute.route(path + '/by-company/:company_id/dto').get(async (req, res) => {
     try {

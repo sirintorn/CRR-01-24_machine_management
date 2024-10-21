@@ -21,6 +21,22 @@ export class MachineSchema extends TableRecordsSchema{
             table.select('*')
             .where('company_id', company_id)
             .where('deleted_at', null)
+            .where('visible', true)
+            .then((val) => {
+                resolve(val);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    }
+
+    adminGetByCompany(company_id: any): Promise<Machine[]>{
+        return new Promise((resolve, reject) => {
+            const table = DB<Machine>(this.tableName);
+            table.select('*')
+            .where('company_id', company_id)
+            .where('deleted_at', null)
+            .orderBy('machine_serial_no', 'asc')
             .then((val) => {
                 resolve(val);
             }).catch(error => {

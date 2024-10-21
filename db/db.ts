@@ -19,10 +19,11 @@ export const TABLE_NAMES = {
     VolumeCalibrationTarget: "VolumeCalibrationTarget",
     StepCalibrationTarget: "StepCalibrationTarget",
     Machine: "Machine",
+    Favorite: "Favorite"
 }
 
 export interface TableRecord{
-    id: any,
+    id?: any,
     created_by?: any,
     updated_by?: any,
     created_at?: any,

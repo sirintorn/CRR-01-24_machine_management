@@ -12,6 +12,11 @@ export class DtoGetMachine extends DTO{
     dbVersionName!: string;
     visible!: boolean;
 
+    //coverage data
+    deviceLimit: number;
+    covStart: any;
+    covEnd: any;
+
     constructor(
         machine: Machine,
         dbVersion?: any,
@@ -26,6 +31,10 @@ export class DtoGetMachine extends DTO{
         this.dbVersionId = machine.db_version_id;
         this.dbVersionName = dbVersion ? dbVersion.name : '-';
         this.visible = machine.visible ?? false;
+
+        this.deviceLimit = machine.device_limit ?? 2;
+        this.covStart = machine.coverage_start_date ?? new Date();
+        this.covEnd = machine.coverage_end_date ?? new Date();
     }
 
     static parseFromArray(

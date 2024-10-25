@@ -8,6 +8,11 @@ export interface Machine extends TableRecord{
     tinting_profile_id?: any,
     db_version_id?: any,
     visible?: boolean,
+
+    //coverage data
+    device_limit: number,
+    coverage_start_date: any,
+    coverage_end_date: any,
 }
 
 export class MachineSchema extends TableRecordsSchema{

@@ -2,6 +2,7 @@ import { Router } from "express";
 import { Machine, MachineSchema } from "../models/m_machines";
 import { DtoGetMachine } from "../dtos/dto_get_machine";
 import { MDCAPI } from "../services/mdc";
+import  QRCode  from "qrcode";
 
 export const MachineRoute = Router();
 
@@ -129,6 +130,47 @@ MachineRoute.route(path + '/:machine_id').get(async (req, res) => {
 
         if(result)res.status(200).send(result);
         else res.status(404).send();
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//DTO GET SINGLE
+MachineRoute.route(path + '/:machine_id/dto').get(async (req, res) => {
+    try {
+        const machine_id = req.params.machine_id;
+
+        const machineSCH = new MachineSchema();
+        const result = await machineSCH.get(machine_id) as Machine;
+        let dto = new DtoGetMachine(result);
+
+        if(result)res.status(200).send(dto);
+        else res.status(404).send();
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//GENERATE MACHINE QRCODE 
+MachineRoute.route(path + '/:machine_id/qrcode').get(async (req, res) => {
+    try {
+        const machine_id = req.params.machine_id;
+
+        const machineSCH = new MachineSchema();
+        const machine = await machineSCH.get(machine_id) as Machine;
+        const result = {
+            serialNo: machine.machine_serial_no,
+            covStart: machine.coverage_start_date,
+            covEnd: machine.coverage_end_date
+        }
+
+        QRCode.toDataURL(JSON.stringify(result), (err: any, url: any) => {
+            if(err){
+                res.status(400).send(err);
+            }else{
+                res.status(200).send(`<html><body><img src="${url}"/></body></html>`);
+            }
+        });
     } catch (error) {
         res.status(400).send(error);
     }

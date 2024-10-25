@@ -3,6 +3,8 @@ import { AppRoute } from "./r_app";
 import { MachineRoute } from "./r_machine";
 import { TintingProfileRoute } from "./r_tinting_profile";
 import { FavoriteRoute } from "./r_favorite";
+import { LicenseRoutes } from "./r_licenses";
+import { DeviceRoutes } from "./r_devices";
 
 
 export const routes = Router();
@@ -13,3 +15,6 @@ routes.use(AppRoute);
 routes.use(MachineRoute);
 routes.use(TintingProfileRoute);
 routes.use(FavoriteRoute);
+
+routes.use(LicenseRoutes);
+routes.use(DeviceRoutes);

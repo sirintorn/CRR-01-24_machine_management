@@ -2,6 +2,26 @@ import axios from "axios";
 import { Config } from './config';
 
 export class MDCAPI {
+  static getDBVersion(db_version_id: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let config = {
+        method: "get",
+        maxBodyLength: Infinity,
+        url: `${Config.getMDCPath()}/db-versions/${db_version_id}`,
+        headers: {},
+      };
+
+      axios
+        .request(config)
+        .then((response) => {
+          resolve(response.data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  }
+
   static getDBVersionByCompany(company_id: any): Promise<any> {
     return new Promise((resolve, reject) => {
       let config = {

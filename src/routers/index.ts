@@ -5,6 +5,7 @@ import { TintingProfileRoute } from "./r_tinting_profile";
 import { FavoriteRoute } from "./r_favorite";
 import { LicenseRoutes } from "./r_licenses";
 import { DeviceRoutes } from "./r_devices";
+import { XBackupRestoreRoutes } from "./x_backup_restore";
 
 
 export const routes = Router();
@@ -18,3 +19,5 @@ routes.use(FavoriteRoute);
 
 routes.use(LicenseRoutes);
 routes.use(DeviceRoutes);
+
+routes.use(XBackupRestoreRoutes);

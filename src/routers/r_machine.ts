@@ -175,3 +175,27 @@ MachineRoute.route(path + '/:machine_id/qrcode').get(async (req, res) => {
         res.status(400).send(error);
     }
 });
+
+
+//SEARCH BY COMPANY
+MachineRoute.route(path + '/by-company/:company_id/search').get(async (req, res) => {
+    try {
+        const keyword = req.query.keyword as string;
+        const company_id = req.params.company_id as string;
+        
+        const schema = new MachineSchema();
+
+        let results: Machine[] = [];
+        if(keyword){
+            let machines = await schema.adminSearchByCompany(company_id, keyword);
+            results.push(...machines);
+        }else{
+            let machines = await schema.adminGetByCompany(company_id);
+            results.push(...machines);
+        }
+
+        res.status(200).send(results);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});

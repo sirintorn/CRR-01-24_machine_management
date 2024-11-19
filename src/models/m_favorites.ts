@@ -1,4 +1,3 @@
-import { resolve } from "path";
 import { DB, TABLE_NAMES, TableRecord, TableRecordsSchema } from "../../db/db";
 import { DTOFavorite } from "../dtos/dto_favorite";
 
@@ -41,6 +40,19 @@ export class FavoriteSchema extends TableRecordsSchema{
             .where('deleted_at', null)
             .then(vals => {
                 resolve(vals);
+            }).catch(error => {
+                reject(error);
+            });
+        });
+    }
+
+    deleteByMachine(machine_id: any): Promise<any>{
+        return new Promise((resolve, reject) => {
+            const table = DB<Favorite>(this.tableName);
+            table.delete()
+            .where('machine_id', machine_id)
+            .then(val => {
+                resolve(val);
             }).catch(error => {
                 reject(error);
             });

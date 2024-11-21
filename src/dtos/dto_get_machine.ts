@@ -7,7 +7,7 @@ export class DtoGetMachine extends DTO{
     serialNo!: string;
     bleMacAddress!: string;
     bleNo!: string;
-    tintingProfileId!: any;
+    tinting_profile_id!: any;
     dbVersionId!: any;
     dbVersionName!: string;
     visible!: boolean;
@@ -27,7 +27,7 @@ export class DtoGetMachine extends DTO{
         this.serialNo = machine.machine_serial_no;
         this.bleMacAddress = machine.bluetooth_mac_address;
         this.bleNo = machine.bluetooth_no;
-        this.tintingProfileId = machine.tinting_profile_id;
+        this.tinting_profile_id = machine.tinting_profile_id;
         this.dbVersionId = machine.db_version_id;
         this.dbVersionName = dbVersion ? dbVersion.name : '-';
         this.visible = machine.visible ?? false;

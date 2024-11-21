@@ -13,7 +13,6 @@ import { TPCleanser } from "../services/tp_cleanser";
 import { TPImporter } from "../services/tp_importer";
 import { DispenseInterpolation } from "../services/android-app/interpolation";
 import { Workbook } from "exceljs";
-import { DTOUpdateCircuitInfo } from "../dtos/dto_update_circuit_info";
 
 export const TintingProfileRoute = Router();
 
@@ -31,6 +30,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).single('tinting-profile');
 
+//GET SINGLE BY MACHINE-ID
 TintingProfileRoute.route(path + '/:machine_id').get(async (req, res) => {
     try {
         const machine_id = req.params.machine_id;
@@ -60,6 +60,7 @@ TintingProfileRoute.route(path + '/:machine_id').get(async (req, res) => {
     }
 });
 
+//IMPORT TINTING PROFILE
 TintingProfileRoute.route(path + '/:machine_id/import').post(async (req, res) => {
     try {
         const machine_id = req.params.machine_id;
@@ -121,6 +122,7 @@ TintingProfileRoute.route(path + '/:machine_id/import').post(async (req, res) =>
     }
 });
 
+//CREATE CIRCUIT INFO MULTIPLE
 TintingProfileRoute.route(path + '/circuit-info/multiple').post(async (req, res) => {
     try {
         const circuitInfoSCH = new CircuitInfoSchema();
@@ -133,6 +135,7 @@ TintingProfileRoute.route(path + '/circuit-info/multiple').post(async (req, res)
     }
 });
 
+//CREATE CALIBRATION INFO MULTIPLE
 TintingProfileRoute.route(path + '/calibration-info/multiple').post(async (req, res) => {
     try {
         const calibrationInfoSCH = new CalibrationInfoSchema();
@@ -145,6 +148,7 @@ TintingProfileRoute.route(path + '/calibration-info/multiple').post(async (req, 
     }
 });
 
+//CREATE VOLUME CALIBRATION TARGET MULTIPLE
 TintingProfileRoute.route(path + '/volume-calibration-target/multiple').post(async (req, res) => {
     try {
         const volumeCalibrationTargetSCH = new VolumeCalibrationTargetSchema();
@@ -157,6 +161,7 @@ TintingProfileRoute.route(path + '/volume-calibration-target/multiple').post(asy
     }
 });
 
+//CREATE STEP CALIBRATION TARGET MULTIPLE
 TintingProfileRoute.route(path + '/step-calibration-target/multiple').post(async (req, res) => {
     try {
         const stepCalibrationTargetSCH = new StepCalibrationTargetSchema();
@@ -169,6 +174,7 @@ TintingProfileRoute.route(path + '/step-calibration-target/multiple').post(async
     }
 });
 
+//CREATE ACCURACY TEST MULTIPLE
 TintingProfileRoute.route(path + '/accuracy-test-target/multiple').post(async (req, res) => {
     try {
         const accuracyTestTargetSCH = new AccuracyTestTargetSchema();
@@ -3411,21 +3417,6 @@ TintingProfileRoute.route(path + '/tests/interpolation').get(async (req, res) =>
         res.send({
             targetStep: result
         });
-    } catch (error) {
-        res.status(400).send(error);
-    }
-});
-
-//update circuit info
-TintingProfileRoute.route(path + '/circuit-info/by-profile/:tinting_profile_id').put(async (req, res) => {
-    try {
-        const tinting_profile_id = req.params.tinting_profile_id as string;
-        const dto = req.body as DTOUpdateCircuitInfo;
-
-        const schema = new CircuitInfoSchema();
-        const result = await schema.updateCircuitInfo(tinting_profile_id, dto);
-
-        res.status(200).send(result);
     } catch (error) {
         res.status(400).send(error);
     }

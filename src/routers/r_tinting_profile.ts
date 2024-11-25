@@ -13,6 +13,7 @@ import { TPCleanser } from "../services/tp_cleanser";
 import { TPImporter } from "../services/tp_importer";
 import { DispenseInterpolation } from "../services/android-app/interpolation";
 import { Workbook } from "exceljs";
+import { AccuracyTestSchema } from "../models/m_accuracy_tests";
 
 export const TintingProfileRoute = Router();
 
@@ -40,16 +41,19 @@ TintingProfileRoute.route(path + '/:machine_id').get(async (req, res) => {
         const volumeCalibrationTargetSCH = new VolumeCalibrationTargetSchema();
         const stepCalibrationTargetSCH = new StepCalibrationTargetSchema();
         const accuracyTestTargetSCH = new AccuracyTestTargetSchema();
+        const accuracyTestSCH = new AccuracyTestSchema();
 
         const circuitInfos = await circuitInfoSCH.getByTintingProfile(machine_id);
         const calibrationInfos = await calibrationInfoSCH.getByTintingProfile(machine_id);
         const volumeCalibrationTargets = await volumeCalibrationTargetSCH.getByTintingProfile(machine_id);
         const stepCalibrationTargets = await stepCalibrationTargetSCH.getByTintingProfile(machine_id);
         const accuracyTestTargets = await accuracyTestTargetSCH.getByTintingProfile(machine_id);
+        const accuracyTests = await accuracyTestSCH.getByTintingProfile(machine_id);
 
         const result = {
             circuitInfos: circuitInfos,
             calibrationInfos: calibrationInfos,
+            accuracyTests: accuracyTests,
             volumeCalibrationTargets: volumeCalibrationTargets,
             stepCalibrationTargets: stepCalibrationTargets,
             accuracyTestTargets: accuracyTestTargets

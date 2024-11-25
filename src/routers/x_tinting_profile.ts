@@ -9,6 +9,7 @@ import { DTOCalibrationInfo } from "../dtos/dto_tp_calibration_infos";
 import { DTOCircuitInfo } from "../dtos/dto_tp_circuit_info";
 import { DTOStepCalibrationTarget } from "../dtos/dto_tp_step_calibration_target";
 import { DTOVolumeCalibrationTarget } from "../dtos/dto_tp_volume_calibration_target";
+import { AccuracyTestSchema } from "../models/m_accuracy_tests";
 
 export const XTintingProfileRoutes = Router();
 
@@ -40,6 +41,23 @@ XTintingProfileRoutes.route(path + '/:tinting_profile_id/calibration-info/:item_
         let body = req.body as DTOCalibrationInfo;
 
         const schema = new CalibrationInfoSchema();
+        const result = await schema.update(item_id, body);
+
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//[UPDATE] ACCURACY TEST
+XTintingProfileRoutes.route(path + '/:tinting_profile_id/accuracy-test/:item_id').put(async (req, res) => {
+    try {
+        const tinting_profile_id = req.params.tinting_profile_id;
+        const item_id = req.params.item_id;
+
+        let body = req.body as DTOCalibrationInfo;
+
+        const schema = new AccuracyTestSchema();
         const result = await schema.update(item_id, body);
 
         res.status(200).send(result);
@@ -131,6 +149,21 @@ XTintingProfileRoutes.route(path + '/:tinting_profile_id/calibration-info/:item_
     }
 });
 
+//[DELETE] ACCURACY TEST
+XTintingProfileRoutes.route(path + '/:tinting_profile_id/accuracy-test/:item_id').delete(async (req, res) => {
+    try {
+        const tinting_profile_id = req.params.tinting_profile_id;
+        const item_id = req.params.item_id;
+
+        const schema = new AccuracyTestSchema();
+        const result = await schema.delete(item_id);
+
+        res.status(200).send();
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
 //[DELETE] CIRCUIT INFO
 XTintingProfileRoutes.route(path + '/:tinting_profile_id/circuit-info/:item_id').delete(async (req, res) => {
     try {
@@ -204,6 +237,23 @@ XTintingProfileRoutes.route(path + '/:tinting_profile_id/calibration-info').post
         body.tinting_profile_id = tinting_profile_id;
 
         const schema = new CalibrationInfoSchema();
+        const result = await schema.create(body, true);
+
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//[CREATE] ACCURACY TEST
+XTintingProfileRoutes.route(path + '/:tinting_profile_id/accuracy-test').post(async (req, res) => {
+    try {
+        const tinting_profile_id = req.params.tinting_profile_id;
+
+        let body = req.body as DTOCalibrationInfo;
+        body.tinting_profile_id = tinting_profile_id;
+
+        const schema = new AccuracyTestSchema();
         const result = await schema.create(body, true);
 
         res.status(200).send(result);

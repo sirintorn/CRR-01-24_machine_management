@@ -8,6 +8,8 @@ export class Config{
             return 'http://localhost:4000/api';
         }else if(env == 'staging'){
             return 'http://172.19.0.3:4000/api';
+        }else if(env == 'production'){
+            return 'http://172.19.0.3:4000/api';
         }else{
             return '';
         }

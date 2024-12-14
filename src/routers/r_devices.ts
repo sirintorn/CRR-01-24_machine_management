@@ -19,6 +19,20 @@ DeviceRoutes.route(path + '/by-machine/:machine_id').get(async (req, res) => {
     }
 });
 
+//GET BY LICENSE
+DeviceRoutes.route(path + '/by-license/:license_id').get(async (req, res) => {
+    try {
+        const license_id = req.params.license_id as string;
+
+        const schema = new DeviceSchema();
+        const result = await schema.getByLicense(license_id);
+
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
 //[ADMIN] REGISTER DEVICE UNDER MACHINE
 DeviceRoutes.route(path + '/manage/register').post(async (req, res) => {
     try {

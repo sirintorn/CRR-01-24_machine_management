@@ -1,0 +1,7 @@
+services:
+  api:
+    restart: always
+    image: machine-management
+    ports:
+      - 4200:4200
+    command: node ./src/index.js

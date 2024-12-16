@@ -22,7 +22,8 @@ export const TABLE_NAMES = {
     Favorite: "Favorite",
     Licenses: "Licenses",
     Devices: "Devices",
-    AccuracyTest: "AccuracyTest"
+    AccuracyTest: "AccuracyTest",
+    Logs: "Logs"
 }
 
 export interface TableRecord{

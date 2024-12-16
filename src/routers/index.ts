@@ -7,6 +7,7 @@ import { LicenseRoutes } from "./r_licenses";
 import { DeviceRoutes } from "./r_devices";
 import { XBackupRestoreRoutes } from "./x_backup_restore";
 import { XTintingProfileRoutes } from "./x_tinting_profile";
+import { XRealtimeStatusRoutes } from "./x_realtime_status";
 
 
 export const routes = Router();
@@ -23,3 +24,4 @@ routes.use(DeviceRoutes);
 
 routes.use(XBackupRestoreRoutes);
 routes.use(XTintingProfileRoutes);
+routes.use(XRealtimeStatusRoutes);

@@ -1,13 +1,14 @@
 import { DB, TABLE_NAMES, TableRecord, TableRecordsSchema } from "../../db/db";
 
 export interface Machine extends TableRecord{
-    company_id: any,
-    machine_serial_no: string,
-    bluetooth_mac_address: string,
-    bluetooth_no: string,
-    tinting_profile_id?: any,
-    db_version_id?: any,
-    visible?: boolean,
+    company_id: any;
+    machine_serial_no: string;
+    bluetooth_mac_address: string;
+    bluetooth_no: string;
+    tinting_profile_id?: any;
+    db_version_id?: any;
+    visible?: boolean;
+    store_id?: any;
 
     //coverage data
     device_limit: number,

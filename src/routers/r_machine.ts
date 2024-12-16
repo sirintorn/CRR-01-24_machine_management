@@ -186,6 +186,7 @@ MachineRoute.route(path + '/by-company/:company_id/search').get(async (req, res)
         const schema = new MachineSchema();
 
         let results: Machine[] = [];
+        
         if(keyword){
             let machines = await schema.adminSearchByCompany(company_id, keyword);
             results.push(...machines);
@@ -199,3 +200,5 @@ MachineRoute.route(path + '/by-company/:company_id/search').get(async (req, res)
         res.status(400).send(error);
     }
 });
+
+

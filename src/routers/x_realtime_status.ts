@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { CircuitInfoSchema } from "../models/m_circuit_infos";
 import { Machine, MachineSchema } from "../models/m_machines";
+import { machine } from "os";
 
 export const XRealtimeStatusRoutes = Router();
 
@@ -71,6 +72,35 @@ XRealtimeStatusRoutes.route(path + '/by-company/:company_id/search').get(async (
         }
 
         res.status(200).send(arr);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
+
+//GET MACHINE INFO 
+XRealtimeStatusRoutes.route(path + '/machine-info/:machine_id').get(async (req, res) => {
+    try {
+        const machine_id = req.params.machine_id as string;
+        
+        const schema = new MachineSchema();
+        const circuitInfoSCH = new CircuitInfoSchema();
+
+        const machine = await schema.get(machine_id);
+
+        if(machine){
+            const circuitInfos = await circuitInfoSCH.getByTintingProfile(machine.id);
+            const status = 'on';
+            const lastOnline = '1 m ago';
+    
+            res.status(200).send({
+                machine: machine,
+                circuitInfos: circuitInfos,
+                status: status,
+                lastOnline: lastOnline
+            });
+        }else{
+            res.status(404).send();
+        }
     } catch (error) {
         res.status(400).send(error);
     }

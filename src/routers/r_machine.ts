@@ -202,3 +202,24 @@ MachineRoute.route(path + '/by-company/:company_id/search').get(async (req, res)
 });
 
 
+MachineRoute.route(path + '/admin/get/:company_id/:agent_id').get(async (req, res) => {
+    console.log("Request received for agent_id:", req.params.agent_id);
+
+    try {
+        const agent_id = req.params.agent_id;
+        const company_id = req.params.company_id;
+
+        if (!agent_id) {
+            return res.status(400).send({ error: "agent_id is required" });
+        }
+
+        const schema = new MachineSchema();
+        const result = await schema.getAllMachineByAgentCompany(agent_id, company_id);
+
+        console.log("Machines fetched successfully:", result);
+        res.status(200).send(result);
+    } catch (error) {
+        console.error("Error fetching machines:", error);
+        res.status(400).send(error);
+    }
+});

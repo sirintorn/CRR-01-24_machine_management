@@ -72,6 +72,12 @@ web_modules/
 # Yarn Integrity file
 .yarn-integrity
 
+# dotenv environment variable files
+#.env
+#.env.development.local
+#.env.test.local
+#.env.production.local
+#.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -84,7 +90,7 @@ out
 # Nuxt.js build / generate output
 .nuxt
 dist
-dits-staging
+dist-staging
 
 # Gatsby files
 .cache/
@@ -123,5 +129,7 @@ dits-staging
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-node_modules
+.DS_Store
+.DS_Store
+.DS_Store
+.DS_Store

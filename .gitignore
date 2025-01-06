@@ -124,22 +124,4 @@ dits-staging
 .yarn/install-state.gz
 .pnp.*
 
-node_modules/.bin/acorn
-node_modules/.bin/crc32
-node_modules/.bin/knex
-node_modules/.bin/mime
-node_modules/.bin/mkdirp
-node_modules/.bin/nodemon
-node_modules/.bin/nodetouch
-node_modules/.bin/resolve
-node_modules/.bin/rimraf
-node_modules/.bin/semver
-node_modules/.bin/ts-node
-node_modules/.bin/ts-node-cwd
-node_modules/.bin/ts-node-esm
-node_modules/.bin/ts-node-script
-node_modules/.bin/ts-node-transpile-only
-node_modules/.bin/ts-script
-node_modules/.bin/tsc
-node_modules/.bin/tsserver
-node_modules/.bin/uuid
+node_modules

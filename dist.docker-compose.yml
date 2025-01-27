@@ -1,13 +1,8 @@
 version: "3.7"
 services:
   api:
+    container_name: crr-01-24-machine-management
     restart: always
-    build:
-      context: .
-      target: staging
-    volumes:
-      - ./:/app
-      - /app/node_modules
+    image: crr-01-24-machine-management
     ports:
       - 4200:4200
-    command: node ./src/index.js

@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { Machine, MachineSchema } from "../models/m_machines";
+import { COMPANY_ROLES, Machine, MachineSchema } from "../models/m_machines";
 import { DtoGetMachine } from "../dtos/dto_get_machine";
 import { MDCAPI } from "../services/mdc";
 import  QRCode  from "qrcode";
+import { machine } from "os";
 
 export const MachineRoute = Router();
 
@@ -11,10 +12,16 @@ const path = '/machine';
 //GET BY COMPANY
 MachineRoute.route(path + '/by-company/:company_id').get(async (req, res) => {
     try {
+        const co_type = req.query.co || COMPANY_ROLES.coloriance;
         const company_id = req.params.company_id;
 
         const machineSCH = new MachineSchema();
-        let machines = await machineSCH.getByCompany(company_id);
+        let machines: Machine[] = [];
+        
+        if(co_type == COMPANY_ROLES.coloriance) machines = await machineSCH.getByCompany(company_id);
+        if(co_type == COMPANY_ROLES.agent) machines = await machineSCH.getByAgent(company_id);
+        if(co_type == COMPANY_ROLES.paint_co) machines = await machineSCH.getByPaintCo(company_id);
+        if(co_type == COMPANY_ROLES.paint_store) machines = await machineSCH.getByPaintStore(company_id);
 
         for (let i = 0; i < machines.length; i++) {
             let item = machines[i] as any;
@@ -37,10 +44,17 @@ MachineRoute.route(path + '/by-company/:company_id').get(async (req, res) => {
 //[ADMIN] GET BY COMPANY
 MachineRoute.route(path + '/by-company/:company_id/admin').get(async (req, res) => {
     try {
+        const co_type = req.query.co || COMPANY_ROLES.coloriance;
         const company_id = req.params.company_id;
 
         const machineSCH = new MachineSchema();
-        let machines = await machineSCH.adminGetByCompany(company_id);
+        let machines: Machine[] = [];
+        
+        if(co_type == COMPANY_ROLES.coloriance) machines = await machineSCH.adminGetByCompany(company_id);
+        if(co_type == COMPANY_ROLES.agent) machines = await machineSCH.adminGetByAgent(company_id);
+        if(co_type == COMPANY_ROLES.paint_co) machines = await machineSCH.adminGetByPaintCo(company_id);
+        if(co_type == COMPANY_ROLES.paint_store) machines = await machineSCH.adminGetByPaintStore(company_id);
+
 
         for (let i = 0; i < machines.length; i++) {
             let item = machines[i] as any;
@@ -63,10 +77,18 @@ MachineRoute.route(path + '/by-company/:company_id/admin').get(async (req, res) 
 //DTO GET BY COMPANY
 MachineRoute.route(path + '/by-company/:company_id/dto').get(async (req, res) => {
     try {
+        const co_type = req.query.co || COMPANY_ROLES.coloriance;
         const company_id = req.params.company_id;
 
         const machineSCH = new MachineSchema();
-        const machines = await machineSCH.getByCompany(company_id);
+        let machines: Machine[] = [];
+        
+        if(co_type == COMPANY_ROLES.coloriance) machines = await machineSCH.getByCompany(company_id);
+        if(co_type == COMPANY_ROLES.agent) machines = await machineSCH.getByAgent(company_id);
+        if(co_type == COMPANY_ROLES.paint_co) machines = await machineSCH.getByPaintCo(company_id);
+        if(co_type == COMPANY_ROLES.paint_store) machines = await machineSCH.getByPaintStore(company_id);
+
+
         const dbVersions = await MDCAPI.getDBVersionByCompany(company_id);
 
         const dtos = DtoGetMachine.parseFromArray(machines, dbVersions);
@@ -176,10 +198,13 @@ MachineRoute.route(path + '/:machine_id/qrcode').get(async (req, res) => {
     }
 });
 
+//ASSIGN MACHINE TO COMPANY
+
 
 //SEARCH BY COMPANY
 MachineRoute.route(path + '/by-company/:company_id/search').get(async (req, res) => {
     try {
+        const co_type = req.query.co || COMPANY_ROLES.coloriance;
         const keyword = req.query.keyword as string;
         const company_id = req.params.company_id as string;
         
@@ -188,10 +213,22 @@ MachineRoute.route(path + '/by-company/:company_id/search').get(async (req, res)
         let results: Machine[] = [];
         
         if(keyword){
-            let machines = await schema.adminSearchByCompany(company_id, keyword);
+            let machines: Machine[] = [];
+            
+            if(co_type == COMPANY_ROLES.coloriance) machines = await schema.adminSearchByCompany(company_id, keyword);
+            if(co_type == COMPANY_ROLES.agent) machines = await schema.adminSearchByAgent(company_id, keyword);
+            if(co_type == COMPANY_ROLES.paint_co) machines = await schema.adminSearchByPaintCo(company_id, keyword);
+            if(co_type == COMPANY_ROLES.paint_store) machines = await schema.adminSearchByPaintStore(company_id, keyword);
+            
             results.push(...machines);
         }else{
-            let machines = await schema.adminGetByCompany(company_id);
+            let machines: Machine[] = [];
+            
+            if(co_type == COMPANY_ROLES.coloriance) machines = await schema.adminGetByCompany(company_id);
+            if(co_type == COMPANY_ROLES.agent) machines = await schema.adminGetByAgent(company_id);
+            if(co_type == COMPANY_ROLES.paint_co) machines = await schema.adminGetByPaintCo(company_id);
+            if(co_type == COMPANY_ROLES.paint_store) machines = await schema.adminGetByPaintStore(company_id);
+            
             results.push(...machines);
         }
 
@@ -202,6 +239,14 @@ MachineRoute.route(path + '/by-company/:company_id/search').get(async (req, res)
 });
 
 
+
+
+
+
+
+
+
+//GET BY AGENT?
 MachineRoute.route(path + '/admin/get/:company_id/:agent_id').get(async (req, res) => {
     console.log("Request received for agent_id:", req.params.agent_id);
 
